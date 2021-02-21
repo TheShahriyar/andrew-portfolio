@@ -6,9 +6,10 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: config.defaultTitle,
-    description: config.defaultDescription,
-    author: config.author,
+    title: 'Andrew Hill',
+    description: 'I’m John and I’m a Backend & Devops engineer!',
+    url: 'https://portfolio.smakosh.com',
+    author: 'Shahriyar Ahmed (shahriyar.31dec@gmail.com)',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -16,15 +17,11 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
-      resolve: 'gatsby-source-graphql',
+      resolve: `gatsby-source-contentful`,
       options: {
-        typeName: 'GitHub',
-        fieldName: 'github',
-        url: 'https://api.github.com/graphql',
-        headers: {
-          Authorization: `bearer ${process.env.GATSBY_PORTFOLIO_GITHUB_TOKEN}`,
-        },
-        fetchOptions: {},
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        // Learn about environment variables: https://gatsby.dev/env-vars
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     },
     {

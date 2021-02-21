@@ -1,9 +1,9 @@
 module.exports = {
-  defaultTitle: 'John Doe',
+  defaultTitle: 'Andrew Hill',
   logo: 'https://portfolio.smakosh.com/favicon/favicon-512.png',
-  author: 'John Doe',
+  author: 'Shahriyar Ahmed (shahriyar.31dec@gmail.com)',
   url: 'https://portfolio.smakosh.com',
-  legalName: 'John Doe',
+  legalName: 'Andrew Hill',
   defaultDescription: 'I’m John and I’m a Backend & Devops engineer!',
   socialLinks: {
     twitter: 'http://www.twitter.com/smakosh',

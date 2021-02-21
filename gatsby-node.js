@@ -7,3 +7,29 @@ exports.onCreateWebpackConfig = ({ actions }) => {
     },
   });
 };
+
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions
+  
+  const { data } = await graphql(`
+    query {
+      allProjects:allContentfulProjects {
+        edges {
+          node {
+            slug
+          }
+        }
+      }
+    }
+  `)
+
+  data.allProjects.edges.forEach(({node}) => {
+    createPage({
+      path: `projects/${node.slug}`,
+      component: path.resolve("./src/templates/project-template.js"),
+      context: {
+        slug: node.slug,
+      }
+    })
+  });
+}

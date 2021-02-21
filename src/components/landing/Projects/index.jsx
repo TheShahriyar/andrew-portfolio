@@ -1,83 +1,51 @@
 import React, { useContext } from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql, Link } from 'gatsby';
 import { ThemeContext } from 'providers/ThemeProvider';
 import { Container, Card, TitleWrap } from 'components/common';
-import Star from 'components/common/Icons/Star';
-import Fork from 'components/common/Icons/Fork';
 import { Wrapper, Grid, Item, Content, Stats, Languages } from './styles';
 
-export const Projects = () => {
-  const { theme } = useContext(ThemeContext);
-  const {
-    github: {
-      viewer: {
-        repositories: { edges },
-      },
-    },
-  } = useStaticQuery(
-    graphql`
-      {
-        github {
-          viewer {
-            repositories(first: 8, orderBy: { field: STARGAZERS, direction: DESC }) {
-              edges {
-                node {
-                  id
-                  name
-                  url
-                  description
-                  stargazers {
-                    totalCount
-                  }
-                  forkCount
-                  languages(first: 3) {
-                    nodes {
-                      id,
-                      name
-                    }
-                  }
-                }
-              }
+const getProjects = graphql`
+    query{
+      allProjects:allContentfulProjects {
+        edges {
+          node {
+            id
+            title
+            slug
+            desc {
+              raw
+            }
+            createdAt(formatString: "DD-MM-YYYY")
+            dealSize
+            projectLength
+            projectDeliveryDate(formatString: "DD-MM-YYYY")
+            shortDescriptions {
+              shortDescriptions
             }
           }
         }
       }
-    `
-  );
+    }
+  `
+
+export const Projects = () => {
+  const { theme } = useContext(ThemeContext);
+  const response = useStaticQuery(getProjects);
+  console.log(response);
+  const projects = response.allProjects.edges
+  console.log(projects);
+
   return (
     <Wrapper as={Container} id="projects">
       <h2>Projects</h2>
       <Grid>
-        {edges.map(({ node }) => (
-          <Item key={node.id} as="a" href={node.url} target="_blank" rel="noopener noreferrer" theme={theme}>
+        {projects.map(({ node }) => (
+          <Item key={node.id} as="a" href={`/projects/${node.slug}`} theme={theme}>
             <Card theme={theme}>
               <Content>
-                <h4>{node.name}</h4>
-                <p>{node.description}</p>
+                <h4>{node.title}</h4>
+                <p>{node.shortDescriptions.shortDescriptions}</p>
               </Content>
-              <TitleWrap>
-                <Stats theme={theme}>
-                  <div>
-                    <Star color={theme === "light" ? "#000" : "#fff"} />
-                    <span>{node.stargazers.totalCount}</span>
-                  </div>
-                  <div>
-                    <Fork color={theme === "light" ? "#000" : "#fff"} />
-                    <span>{node.forkCount}</span>
-                  </div>
-                </Stats>
-                <Stats theme={theme}>
-                  <Languages>
-                    {
-                      node.languages.nodes.map(({ id, name }) => (
-                        <span key={id}>
-                          {name}
-                        </span>
-                      ))
-                    }
-                  </Languages>
-                </Stats>
-              </TitleWrap>
             </Card>
           </Item>
         ))}
