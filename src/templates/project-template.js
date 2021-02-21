@@ -32,7 +32,6 @@ const projectTemplate = ({ data }) => {
           <h1>Location Map</h1>
         </Grid>
       </Wrapper>
-      <Skills />
       <Contact/>
     </Layout>
   )

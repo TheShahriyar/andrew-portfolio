@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  padding: 10rem 0 2rem;
+  padding: 10rem 0;
 `;
 
 export const Grid = styled.div`
   display: grid;
   align-items: center;
   grid-template-columns: 2fr 1fr;
-  column-gap: 5rem
+  column-gap: 5rem;
 
   @media (max-width: 960px) {
     grid-template-columns: repeat(2, 1fr);
