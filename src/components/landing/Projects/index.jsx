@@ -5,22 +5,15 @@ import { Container, Card, TitleWrap } from 'components/common';
 import { Wrapper, Grid, Item, Content, Stats, Languages } from './styles';
 
 const getProjects = graphql`
-    query{
-      allProjects:allContentfulProjects {
+    query {
+      allProjects:allContentfulAllProjects {
         edges {
           node {
             id
             title
             slug
-            fullDescriptions {
-              fullDescriptions
-            }
-            createdAt(formatString: "DD-MM-YYYY")
-            dealSize
-            projectLength
-            projectDeliveryDate(formatString: "DD-MM-YYYY")
-            shortDescriptions {
-              shortDescriptions
+            shortDesc {
+              shortDesc
             }
           }
         }
@@ -33,7 +26,6 @@ export const Projects = () => {
   const response = useStaticQuery(getProjects);
   console.log(response);
   const projects = response.allProjects.edges
-  console.log(projects);
 
   return (
     <Wrapper as={Container} id="projects">
@@ -44,7 +36,7 @@ export const Projects = () => {
             <Card theme={theme}>
               <Content>
                 <h4>{node.title}</h4>
-                <p>{node.shortDescriptions.shortDescriptions}</p>
+                <p>{node.shortDesc.shortDesc}</p>
               </Content>
             </Card>
           </Item>

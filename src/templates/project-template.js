@@ -13,7 +13,7 @@ const projectTemplate = ({ data }) => {
 
   const { theme } = useContext(ThemeContext);
 
-  const {title,createdAt,dealSize,fullDescriptions,projectDeliveryDate,projectLength,location} = data.project
+  const {title,projectCreated,projectPrice,fullDesc,projectDelivery,projectDuration,location} = data.project
 
   return (
     <Layout>
@@ -23,11 +23,11 @@ const projectTemplate = ({ data }) => {
         <Grid theme={theme}>
           <div>
             <h1>{title}</h1>
-            <p>{fullDescriptions.fullDescriptions}</p>
-            <div>Deal Size: {dealSize}</div>
-            <div>Created At: {createdAt}</div>
-            <div>Project Length: {projectLength}</div>
-            <div>Delivery Date: {projectDeliveryDate}</div>
+            <p>{fullDesc.fullDesc}</p>
+            <div>Deal Size: {projectPrice}</div>
+            <div>Created At: {projectCreated}</div>
+            <div>Project Length: {projectDuration}</div>
+            <div>Delivery Date: {projectDelivery}</div>
           </div>
           <h1>Location Map</h1>
         </Grid>
@@ -38,20 +38,20 @@ const projectTemplate = ({ data }) => {
 }
 
 export const getSingleProjects = graphql`
-    query ($slug: String!) {
-      project:contentfulProjects(slug: {eq: $slug}) {
-        slug
+    query($slug: String!) {
+      project:contentfulAllProjects(slug: {eq: $slug}) {
         title
-        createdAt(formatString: "DD-MM-YYY")
-        projectLength
-        projectDeliveryDate(formatString: "DD-MM-YYY")
-        dealSize
-        fullDescriptions {
-          fullDescriptions
+        slug
+        fullDesc {
+          fullDesc
         }
-        location {
-          lon
+        projectCreated(formatString: "DD-MM-YYYY")
+        projectDelivery(formatString: "DD-MM-YYYY")
+        projectDuration
+        projectPrice
+        projectLocation {
           lat
+          lon
         }
       }
     }

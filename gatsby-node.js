@@ -13,7 +13,7 @@ exports.createPages = async ({ graphql, actions }) => {
   
   const { data } = await graphql(`
     query {
-      allProjects:allContentfulProjects {
+      allProjects:allContentfulAllProjects {
         edges {
           node {
             slug
