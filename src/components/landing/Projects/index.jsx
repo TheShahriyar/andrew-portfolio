@@ -12,8 +12,8 @@ const getProjects = graphql`
             id
             title
             slug
-            desc {
-              raw
+            fullDescriptions {
+              fullDescriptions
             }
             createdAt(formatString: "DD-MM-YYYY")
             dealSize

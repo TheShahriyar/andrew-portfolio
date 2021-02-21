@@ -13,7 +13,7 @@ const projectTemplate = ({ data }) => {
 
   const { theme } = useContext(ThemeContext);
 
-  const {title,createdAt,dealSize,shortDescriptions,projectDeliveryDate,projectLength,location} = data.project
+  const {title,createdAt,dealSize,fullDescriptions,projectDeliveryDate,projectLength,location} = data.project
 
   return (
     <Layout>
@@ -23,7 +23,7 @@ const projectTemplate = ({ data }) => {
         <Grid theme={theme}>
           <div>
             <h1>{title}</h1>
-            <p>{shortDescriptions.shortDescriptions}</p>
+            <p>{fullDescriptions.fullDescriptions}</p>
             <div>Deal Size: {dealSize}</div>
             <div>Created At: {createdAt}</div>
             <div>Project Length: {projectLength}</div>
@@ -46,8 +46,8 @@ export const getSingleProjects = graphql`
         projectLength
         projectDeliveryDate(formatString: "DD-MM-YYY")
         dealSize
-        shortDescriptions {
-          shortDescriptions
+        fullDescriptions {
+          fullDescriptions
         }
         location {
           lon
